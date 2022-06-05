@@ -1,0 +1,56 @@
+{
+	"name": "sthemer",
+	"version": "0.0.1",
+	"description": "An opinionated solution to support multiple themes in your Svelte/SvelteKit application.",
+	"author": "ivanhofer",
+	"homepage": "https://github.com/ivanhofer/sthemer",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ivanhofer/sthemer"
+	},
+	"keywords": [
+		"theming",
+		"svelte",
+		"sveltekit",
+		"theme",
+		"themes"
+	],
+	"license": "MIT",
+	"scripts": {
+		"dev": "svelte-kit dev",
+		"build": "svelte-kit build",
+		"package": "svelte-kit package",
+		"preview": "svelte-kit preview",
+		"prepare": "svelte-kit sync",
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
+		"format": "prettier --write --plugin-search-dir=. ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/kit": "next",
+		"@typescript-eslint/eslint-plugin": "^5.10.1",
+		"@typescript-eslint/parser": "^5.10.1",
+		"eslint": "^8.12.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"prettier": "^2.5.1",
+		"prettier-plugin-svelte": "^2.5.0",
+		"svelte": "^3.44.0",
+		"svelte-check": "^2.2.6",
+		"svelte-preprocess": "^4.10.1",
+		"svelte2tsx": "^0.5.10",
+		"tslib": "^2.3.1",
+		"typescript": "~4.6.2"
+	},
+	"type": "module",
+	"funding": {
+		"type": "github",
+		"url": "https://github.com/sponsors/ivanhofer"
+	},
+	"volta": {
+		"node": "16.14.0",
+		"npm": "8.5.1"
+	}
+}
