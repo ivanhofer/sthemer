@@ -1,4 +1,4 @@
-import { setFallbackScheme } from '$lib/sthemer.context'
+import { setFallbackScheme } from '$lib/context'
 import type { Handle, RequestEvent } from '@sveltejs/kit'
 
 export const setupSthemer = ({ request }: RequestEvent): Response | void => {

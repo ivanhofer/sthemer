@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte'
 
-	import { createSthemerContext, type Strategy } from './sthemer.context'
+	import { createSthemerContext, type Strategy } from './context'
 
 	export let strategy: Strategy = 'auto'
 

@@ -1,2 +1,2 @@
-import { handle } from '$lib/sthemer.hooks'
+import { handle } from '$lib/hooks'
 export { handle }
