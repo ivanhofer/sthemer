@@ -1,0 +1,48 @@
+name: run tests & bump version & publish to npm
+
+on:
+   push:
+      branches:
+         - 'main'
+
+jobs:
+   release:
+      runs-on: ubuntu-latest
+      if: "!contains(github.event.head_commit.message, 'chore')"
+      steps:
+         - uses: actions/checkout@v2
+
+         - uses: pnpm/action-setup@v2
+           with:
+              version: 7.1.9
+
+         - name: install node
+           uses: actions/setup-node@v2
+           with:
+              node-version: 16.15.1
+              cache: 'pnpm'
+
+         - run: pnpm install --no-save
+
+         - name: run linting
+           run: pnpm lint
+
+         - name: run tests
+           run: pnpm test
+
+         - name: bump version and create tag
+           uses: 'phips28/gh-action-bump-version@master'
+           env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           with:
+              minor-wording: 'feat'
+              major-wording: 'major'
+
+         - name: build package
+           run: pnpm build
+
+         - name: publish to npm
+           uses: JS-DevTools/npm-publish@v1
+           with:
+              token: ${{ secrets.NPM_TOKEN }}
+              package: ./package/package.json
