@@ -38,8 +38,11 @@ jobs:
               minor-wording: 'feat'
               major-wording: 'major'
 
-         - name: build package
+         - name: build app
            run: pnpm build
+
+         - name: package lib
+           run: pnpm package
 
          - name: publish to npm
            uses: JS-DevTools/npm-publish@v1
