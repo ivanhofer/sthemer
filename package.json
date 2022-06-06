@@ -1,6 +1,6 @@
 {
 	"name": "sthemer",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "An opinionated solution to support multiple themes in your Svelte/SvelteKit application.",
 	"author": "ivanhofer",
 	"homepage": "https://github.com/ivanhofer/sthemer",
