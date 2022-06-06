@@ -1,14 +1,4 @@
 {
 	"$schema": "http://json.schemastore.org/lintstagedrc.schema",
-	"*.{js,ts,d.ts}": [
-		"npm run prettier:fix:base",
-		"npm run eslint:fix:base"
-	],
-	"*.scss": [
-		"npm run prettier:fix:base"
-	],
-	"*.svelte": [
-		"npm run prettier:fix:base",
-		"npm run eslint:fix:base"
-	]
+	"*": ["npm run prettier:fix:base", "npm run eslint:fix:base"]
 }
