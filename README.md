@@ -33,11 +33,11 @@
 
    /** @type {import('@sveltejs/kit').Config} */
    const config = {
-   	preprocess: preprocess({
-   		scss: {
-   			prependData: `@import 'sthemer/mixins';`,
-   		},
-   	}),
+      preprocess: preprocess({
+         scss: {
+            prependData: `@import 'sthemer/mixins';`,
+         },
+      }),
    }
 
    export default config
@@ -51,23 +51,23 @@
 
    ```svelte
    <script>
-   	import Sthemer from 'sthemer'
+      import Sthemer from 'sthemer'
    </script>
 
    <Sthemer strategy="auto">
-   	<!-- your application goes here -->
+      <!-- your application goes here -->
    </Sthemer>
 
    <style lang="scss">
-   	p {
-   		@include on-dark {
-   			color: red;
-   		}
+      p {
+         @include on-dark {
+            color: red;
+         }
 
-   		@include on-light {
-   			color: green;
-   		}
-   	}
+         @include on-light {
+            color: green;
+         }
+      }
    </style>
    ```
 
@@ -77,28 +77,28 @@
 
    ```svelte
    <button on:click>
-   	<slot />
+      <slot />
    </button>
 
    <style lang="scss">
-   	button {
-   		// styles that apply to both schemes
-   		font-size: 1.3rem;
-   		padding: 10px 20px;
-   		border-radius: 8px;
+      button {
+         // styles that apply to both schemes
+         font-size: 1.3rem;
+         padding: 10px 20px;
+         border-radius: 8px;
 
-   		// theses styles will apply when the component gets rendered on a 'dark' wrapper
-   		@include on-dark {
-   			background-color: white;
-   			color: black;
-   		}
+         // theses styles will apply when the component gets rendered on a 'dark' wrapper
+         @include on-dark {
+            background-color: white;
+            color: black;
+         }
 
-   		// theses styles will apply when the component gets rendered on a 'light' wrapper
-   		@include on-light {
-   			background-color: black;
-   			color: white;
-   		}
-   	}
+         // theses styles will apply when the component gets rendered on a 'light' wrapper
+         @include on-light {
+            background-color: black;
+            color: white;
+         }
+      }
    </style>
    ```
 

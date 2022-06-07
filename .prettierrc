@@ -7,5 +7,13 @@
 	"arrowParens": "always",
 	"trailingComma": "all",
 	"htmlWhitespaceSensitivity": "ignore",
-	"endOfLine": "auto"
+	"endOfLine": "auto",
+	"overrides": [
+		{
+			"files": "*.md",
+			"options": {
+				"useTabs": false
+			}
+		}
+	]
 }
