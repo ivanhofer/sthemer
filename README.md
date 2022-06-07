@@ -43,7 +43,7 @@
    export default config
    ```
 
-   > This example uses [`scss`](https://sass-lang.com/documentation/syntax#scss) as css preprocessor. Other formats are also supported. See the [supported CSS preprocessors](+supported-css-preprocessors) section for more details.
+   > This example uses [`scss`](https://sass-lang.com/documentation/syntax#scss) as css preprocessor. Other formats are also supported. See the [supported CSS preprocessors](#supported-css-preprocessors) section for more details.
 
 3. :file_folder: Wrap your code with the `Sthemer.svelte` component and define your preferred [strategy](#strategies).
 
