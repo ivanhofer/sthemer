@@ -1,7 +1,7 @@
 {
 	"name": "sthemer",
 	"version": "0.5.0",
-	"description": "An opinionated solution to support multiple themes in your Svelte/SvelteKit application.",
+	"description": "A lightweight yet powerful solution to support multiple color schemes in your Svelte/SvelteKit application.",
 	"author": "ivanhofer",
 	"homepage": "https://github.com/ivanhofer/sthemer",
 	"repository": {
@@ -9,9 +9,14 @@
 		"url": "https://github.com/ivanhofer/sthemer"
 	},
 	"keywords": [
-		"theming",
+		"color schemes",
+		"light/dark mode",
 		"svelte",
 		"sveltekit",
+		"dark mode",
+		"light mode",
+		"scheme",
+		"theming",
 		"theme",
 		"themes"
 	],
@@ -52,6 +57,7 @@
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"husky": "^8.0.1",
+		"less": "^4.1.2",
 		"lint-staged": "^13.0.0",
 		"node-sass": "^7.0.1",
 		"prettier": "^2.6.2",

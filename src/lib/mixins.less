@@ -1,0 +1,19 @@
+// TODO: add support for more or less levels of nesting
+
+.on-dark(@content) {
+	:global(.sthemer-dark) &,
+	:global(.sthemer-light) :global(.sthemer-dark) &,
+	:global(.sthemer-dark) :global(.sthemer-light) :global(.sthemer-dark) &,
+	:global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) :global(.sthemer-dark) & {
+		@content();
+	}
+}
+
+.on-light(@content) {
+	:global(.sthemer-light) &,
+	:global(.sthemer-dark) :global(.sthemer-light) &,
+	:global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) &,
+	:global(.sthemer-dark) :global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) & {
+		@content();
+	}
+}
