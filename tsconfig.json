@@ -17,6 +17,11 @@
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
 		"noUncheckedIndexedAccess": true,
-		"allowUnreachableCode": false
+		"allowUnreachableCode": false,
+		"paths": {
+			"$lib": ["src/lib"],
+			"$lib/*": ["src/lib/*"],
+			"$components/*": ["src/components/*"]
+		}
 	}
 }
