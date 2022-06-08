@@ -1,3 +1,3 @@
-import SthemerSvelte from './Sthemer.svelte'
+import Sthemer from './Sthemer.svelte'
 
-export default SthemerSvelte
+export default Sthemer

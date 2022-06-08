@@ -1,20 +1,22 @@
 import { browser } from '$app/env'
 import { getContext, setContext } from 'svelte'
 import { noop } from 'svelte/internal'
-import { writable, type Readable } from 'svelte/store'
-
-const supportedSchemes = ['dark', 'light'] as const
-
-export type ColorScheme = typeof supportedSchemes[number]
-
-export type Strategy = ColorScheme | 'auto' | 'inverted'
-
-type SthemerContext = Readable<ColorScheme> & {
-	changeScheme: (scheme: ColorScheme) => void
-	changeStrategy: (strategy: Strategy) => void
-}
+import { derived, writable, type Readable, type Writable } from 'svelte/store'
 
 const KEY = {}
+
+// ------------------------------------------------------------------------------------------------
+
+export const sthemerSchemes = ['dark', 'light'] as const
+export type SthemerScheme = typeof sthemerSchemes[number]
+
+export const sthemerStrategies = [...sthemerSchemes, 'auto', 'inverted'] as const
+export type SthemerStrategy = typeof sthemerStrategies[number]
+
+type SthemerContext = {
+	strategy: Writable<SthemerStrategy>
+	scheme: Readable<SthemerScheme>
+}
 
 // ------------------------------------------------------------------------------------------------
 
@@ -22,68 +24,61 @@ let prefersDarkFallback = false
 
 export const setFallbackScheme = (schema: string | null) => (prefersDarkFallback = schema === 'dark')
 
-const getInvertedScheme = (scheme: ColorScheme): ColorScheme => (scheme === 'dark' ? 'light' : 'dark')
+// ------------------------------------------------------------------------------------------------
 
-export const createSthemerContext = (strategy: Strategy = 'auto') => {
+const getInvertedScheme = (scheme: SthemerScheme): SthemerScheme => (scheme === 'dark' ? 'light' : 'dark')
+
+export const getSthemerContext = () => {
+	const context = getContext<SthemerContext>(KEY)
+	if (context) return context
+
+	throw Error('You need to wrap your code in a <Sthemer> component')
+}
+
+export const createSthemerContext = (strategy: SthemerStrategy = 'auto') => {
 	const mediaQueryPrefersDark = browser
 		? window.matchMedia('(prefers-color-scheme: dark)')
 		: { matches: prefersDarkFallback, addEventListener: noop, removeEventListener: noop }
 
-	const getSchemeFromStrategy = (strategy: Strategy): ColorScheme => {
-		if (supportedSchemes.includes(strategy as ColorScheme)) return strategy as ColorScheme
+	const getSchemeFromStrategy = (strategy: SthemerStrategy): SthemerScheme => {
+		if (sthemerSchemes.includes(strategy as SthemerScheme)) return strategy as SthemerScheme
 
 		const prefersDarkScheme = mediaQueryPrefersDark.matches
-		const preferredScheme = prefersDarkScheme ? 'dark' : 'light'
-
-		return strategy === 'inverted' ? getInvertedScheme(preferredScheme) : preferredScheme
+		return prefersDarkScheme ? 'dark' : 'light'
 	}
 
-	let currentUsedStrategy = strategy
-	let currentUsedScheme = getSchemeFromStrategy(currentUsedStrategy)
+	const autoStore = writable<SthemerScheme>(mediaQueryPrefersDark.matches ? 'dark' : 'light')
 
-	const changeScheme = () => scheme.changeScheme(mediaQueryPrefersDark.matches ? 'dark' : 'light')
+	const strategyStore = writable<SthemerStrategy>(strategy)
 
-	const addEventListener = () =>
-		currentUsedStrategy === 'auto' && mediaQueryPrefersDark.addEventListener('change', changeScheme)
-	const removeEventListener = () =>
-		currentUsedStrategy === 'auto' && mediaQueryPrefersDark.removeEventListener('change', changeScheme)
+	const parentContext = getContext<SthemerContext>(KEY)
 
-	const { set, subscribe } = writable<ColorScheme>(currentUsedScheme)
-	const scheme = {
-		subscribe,
-		changeScheme: (scheme: ColorScheme) => {
-			if (currentUsedScheme === scheme) return
+	const changeScheme = () => autoStore.set(mediaQueryPrefersDark.matches ? 'dark' : 'light')
 
-			currentUsedScheme = scheme
-			set(scheme)
-		},
-		changeStrategy: (strategy: Strategy) => {
-			if (currentUsedStrategy === strategy) return
-
-			removeEventListener()
-			currentUsedStrategy = strategy
-			addEventListener()
-			set(getSchemeFromStrategy(currentUsedStrategy))
-		},
-	}
-
-	const parentScheme: SthemerContext = getContext<SthemerContext>(KEY) || writable(currentUsedScheme)
-	const unsubscribeFromParentScheme = parentScheme.subscribe((parentScheme) => {
-		if (currentUsedStrategy === 'inverted') {
-			const invertedScheme = getInvertedScheme(parentScheme)
-			if (currentUsedScheme === invertedScheme) return
-
-			currentUsedScheme = invertedScheme
-			scheme.changeScheme(currentUsedScheme)
+	const schemeStore = derived<
+		[Writable<SthemerStrategy>, Writable<SthemerScheme>, Readable<SthemerScheme>],
+		SthemerScheme
+	>([strategyStore, autoStore, parentContext?.scheme], ([strategy, autoValue, parentScheme]) => {
+		if (strategy === 'inverted') {
+			return getInvertedScheme(parentScheme || autoValue)
 		}
+
+		if (strategy === 'auto') {
+			mediaQueryPrefersDark.addEventListener('change', changeScheme)
+			return autoValue
+		} else {
+			mediaQueryPrefersDark.removeEventListener('change', changeScheme)
+		}
+
+		return getSchemeFromStrategy(strategy)
 	})
 
-	addEventListener()
-
-	setContext<SthemerContext>(KEY, scheme)
-
-	return {
-		scheme,
-		unsubscribeFromParentScheme,
+	const context = {
+		strategy: strategyStore,
+		scheme: schemeStore,
 	}
+
+	setContext<SthemerContext>(KEY, context)
+
+	return context
 }

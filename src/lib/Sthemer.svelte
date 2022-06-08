@@ -1,15 +1,11 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte'
+	import { createSthemerContext, type SthemerStrategy } from '$lib/context'
 
-	import { createSthemerContext, type Strategy } from './context'
+	export let strategy: SthemerStrategy = 'auto'
 
-	export let strategy: Strategy = 'auto'
+	const { scheme, strategy: strategyStore } = createSthemerContext(strategy)
 
-	const { scheme, unsubscribeFromParentScheme } = createSthemerContext(strategy)
-
-	$: scheme.changeStrategy(strategy)
-
-	onDestroy(unsubscribeFromParentScheme)
+	$: $strategyStore = strategy
 </script>
 
 <div class="sthemer-{$scheme}" style="display: contents">
