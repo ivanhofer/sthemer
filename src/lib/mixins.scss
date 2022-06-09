@@ -17,8 +17,11 @@ $sthemerLevels: 1 !default;
 }
 
 @function getSelector($scheme, $levels) {
+	// TODO: cache results to not calculate them every time
 	@if ($levels < 1) {
 		$levels: 1;
+	} @else if $levels > 100 {
+		$levels: 100;
 	}
 
 	$selector: '&';
