@@ -8,8 +8,8 @@
 :muscle: powerful\
 :ok_hand: easy to use\
 :running: fast and efficient\
-:stopwatch: supports SSR (Server-Side Rendering)\
 :nesting_dolls: nested schemes \
+:stopwatch: supports SSR (Server-Side Rendering)\
 :safety_vest: best TypeScript support (works with JavaScript projects too) \
 :no_entry: no external dependencies
 
@@ -295,10 +295,6 @@
 
    If used on a **light** color scheme, it will be **dark** and vice versa. Can be useful when using [nested schemes](#nested-schemes). When used at the root, it uses the inverted color scheme from the ['auto'-strategy](#auto).
 
-### Server-Side Rendering (SSR)
-
-TODO
-
 ### Nested Schemes
 
 By default `sthemer` doesn't output code that can be used with nested color schemes. But you can manually specify how many levels of nesting you want support.
@@ -396,6 +392,39 @@ By default `sthemer` doesn't output code that can be used with nested color sche
    :global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) button {
       background-color: black;
       color: white;
+   }
+   ```
+
+### Server-Side Rendering (SSR)
+
+By default `sthemer` also works with your SvelteKit projects that perform server-side rendering.
+
+If you want to use the **[`inverted`](#inverted)** strategy at the root level or the **[`auto`](#auto)** strategy, you need to make a small adjustments to your SvelteKit project.
+
+By default the server doesn't know what color scheme the user is using. To get that information the server has to respond with some custom HTTP headers so the browser performs the request again with the information about the preferred color scheme.
+
+`sthemer` already provides this functionality and you just have to connect it to your SvelteKit project:
+
+-  if you don't have a _[hooks](https://kit.svelte.dev/docs/hooks)_ file yet, create one with the following content:
+
+   ```ts
+   import { handle } from 'sthemer/hooks'
+   export { handle }
+   ```
+
+-  or if you already have a _[hooks](https://kit.svelte.dev/docs/hooks)_ file, add following lines to the top of the `handle` function:
+
+   ```diff
+   +import { setupSthemer } from '$lib/hooks'
+
+   /** @type {import('@sveltejs/kit').Handle} */
+   export async function handle({ event, resolve }) {
+   +   const sthemerResponse = setupSthemer(event)
+   +   if (sthemerResponse) return sthemerResponse
+
+      // your custom logic goes here
+
+      return await resolve(event)
    }
    ```
 
