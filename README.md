@@ -98,6 +98,53 @@
 
 ## Usage
 
+#### Sthemer.svelte
+
+To wrap your application or parts of it. It will set up everything in order for you to just [define the styles](#supported-css-preprocessors) of your components.
+
+```svelte
+<script>
+   import Sthemer from 'sthemer'
+</script>
+
+<Sthemer strategy="auto" let:scheme>
+   I am rendered on a <strong>{scheme}</strong>
+    wrapper.
+</Sthemer>
+```
+
+##### props
+
+-  `strategy` (optional): the [strategy](#strategies) to use.\
+    The component reacts to changes to the `strategy` prop and changes the color scheme accordingly.
+
+#### slot props
+
+-  `let:scheme`: the current used scheme.\
+    To get the current used scheme, use the `let:scheme` slot prop.
+
+#### context.ts
+
+To programmatically access the current used scheme and strategy, you can call `getSthemerContext()`. The returned object contains two items:
+
+-  **strategy**: a [`writable-store`](https://svelte.dev/docs#run-time-svelte-store-writable) containing the strategy to use.
+-  **scheme**: a [`readable-store`](https://svelte.dev/docs#run-time-svelte-store-readable) containing the used color scheme.
+
+```svelte
+<script>
+   import { getSthemerContext } from 'sthemer/context'
+   const { strategy, scheme } = getSthemerContext()
+
+   const toggleStrategy = () => {
+      $strategy = $strategy === 'dark' ? 'light' : 'dark'
+   }
+</script>
+
+<button on:click={toggleStrategy}>Toggle strategy</button>
+
+Used scheme: {$scheme}
+```
+
 ### supported CSS preprocessors
 
 `sthemer` works with the most used CSS preprocessors to provide you with a good user experience. It is recommended to use one of the following options.
@@ -530,3 +577,7 @@ Nesting is a feature that probably won't get used by most projects. Nesting prod
 ### Why is the generated CSS so big when using multiple levels of nesting?
 
 The more levels of nesting you are using, the longer the required CSS selector is and so the file size of the resulting CSS will be larger. But It will not account that much to the amount of data an user has to download. Modern browsers and tools have good support for [gzip](https://www.gnu.org/software/gzip/) compression. Because those selectors will look quite similar, gzip compression will perform great and reduce the size.
+
+### Why does the scheme class not get applied to the HTML tag?
+
+You probably will never need it. You can wrap the root of your application with the `Sthemer` and define your styles there. This approach also makes it possible to use [nested schemes](#nested-schemes) in a consistent way.
