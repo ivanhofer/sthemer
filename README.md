@@ -102,50 +102,6 @@
 
 `sthemer` works with the most used CSS preprocessors to provide you with a good user experience. It is recommended to use one of the following options.
 
-#### [sass](https://sass-lang.com/)
-
-1. Add the mixin globally.
-
-   _svelte.config.js_
-
-   ```js
-   import preprocess from 'svelte-preprocess'
-
-   /** @type {import('@sveltejs/kit').Config} */
-   const config = {
-      preprocess: preprocess({
-         sass: {
-            prependData: `@import 'sthemer/mixins'`,
-         },
-      }),
-   }
-
-   export default config
-   ```
-
-2. Define styles for your components.
-
-   _Component.svelte_
-
-   ```svelte
-   <button on:click>
-      <slot />
-   </button>
-
-   <style lang="sass">
-      button
-         // theses styles will apply when the component gets rendered on a 'dark' wrapper
-         @include on-dark
-            background-color: white
-            color: black
-   
-         // theses styles will apply when the component gets rendered on a 'light' wrapper
-         @include on-light
-            background-color: black
-            color: white
-   </style>
-   ```
-
 #### [scss](https://sass-lang.com/documentation/syntax#scss)
 
 1. Add the mixin globally.
@@ -240,6 +196,50 @@
    </style>
    ```
 
+#### [sass](https://sass-lang.com/)
+
+1. Add the mixin globally.
+
+   _svelte.config.js_
+
+   ```js
+   import preprocess from 'svelte-preprocess'
+
+   /** @type {import('@sveltejs/kit').Config} */
+   const config = {
+      preprocess: preprocess({
+         sass: {
+            prependData: `@import 'sthemer/mixins'`,
+         },
+      }),
+   }
+
+   export default config
+   ```
+
+2. Define styles for your components.
+
+   _Component.svelte_
+
+   ```svelte
+   <button on:click>
+      <slot />
+   </button>
+
+   <style lang="sass">
+      button
+         // theses styles will apply when the component gets rendered on a 'dark' wrapper
+         @include on-dark
+            background-color: white
+            color: black
+   
+         // theses styles will apply when the component gets rendered on a 'light' wrapper
+         @include on-light
+            background-color: black
+            color: white
+   </style>
+   ```
+
 #### CSS (no preprocessor)
 
 1. Define styles for your components.
@@ -264,28 +264,6 @@
          color: white;
       }
    </style>
-   ```
-
-   > If you want to support multiple [levels of nesting](#nested-schemes), you need to manually add them if you are not using a preprocessor like [`sass`](#sass), [`scss`](#scss) or [`less`](#less).
-
-   ```css
-   // theses styles will apply when the component gets rendered on a 'dark' wrapper
-   // (supports 3 levels of nesting)
-   :global(.sthemer-dark) button,
-   :global(.sthemer-light) :global(.sthemer-dark) button,
-   :global(.sthemer-dark) :global(.sthemer-light) :global(.sthemer-dark) button {
-      background-color: white;
-      color: black;
-   }
-
-   // theses styles will apply when the component gets rendered on a 'light' wrapper
-   // (supports 3 levels of nesting)
-   :global(.sthemer-light) button,
-   :global(.sthemer-dark) :global(.sthemer-light) button,
-   :global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) button {
-      background-color: black;
-      color: white;
-   }
    ```
 
 ### Schemes
@@ -323,7 +301,103 @@ TODO
 
 ### Nested Schemes
 
-TODO
+By default `sthemer` doesn't output code that can be used with nested color schemes. But you can manually specify how many levels of nesting you want support.
+
+-  [**scss**](#scss)
+
+   -  globally
+
+      _svelte.config.js_
+
+      ```js
+      // set the '$sthemerLevels' variable to the value you want
+      prependData: '@import 'src/lib/mixins'; $sthemerLevels: 3',
+      ```
+
+   -  for a specific selector
+
+      _Component.svelte_
+
+      ```scss
+      button {
+         // add the amount of levels as a parameter
+         @include on-dark(3) {
+            background-color: white;
+         }
+      }
+      ```
+
+-  [**less**](#less)
+
+   -  globally
+
+      _svelte.config.js_
+
+      ```js
+      // set the '@sthemerLevels' variable to the value you want
+      prependData: `@import 'sthemer/mixins'; @sthemerLevels: 3;`,
+      ```
+
+   -  for a specific selector
+
+      _Component.svelte_
+
+      ```less
+      button {
+         .on-dark({
+            background-color: white;
+         }, 3); // add the amount of levels as a second parameter
+      }
+      ```
+
+-  [**sass**](#sass)
+
+   -  globally
+
+      _svelte.config.js_
+
+      ```js
+      // set the '$sthemerLevels' variable to the value you want
+      prependData: `
+      @import 'src/lib/mixins'
+      $sthemerLevels: 3
+      `,
+      ```
+
+   -  for a specific selector
+
+      _Component.svelte_
+
+      ```scss
+      button
+         // add the amount of levels as a parameter
+         @include on-dark(3)
+            background-color: white
+      ```
+
+-  [**CSS**](#css-no-preprocessor)
+
+   If you want to support multiple [levels of nesting](#nested-schemes), you need to manually add them if you are not using a preprocessor like [`sass`](#sass), [`scss`](#scss) or [`less`](#less).
+
+   ```css
+   // theses styles will apply when the component gets rendered on a 'dark' wrapper
+   // (supports 3 levels of nesting)
+   :global(.sthemer-dark) button,
+   :global(.sthemer-light) :global(.sthemer-dark) button,
+   :global(.sthemer-dark) :global(.sthemer-light) :global(.sthemer-dark) button {
+      background-color: white;
+      color: black;
+   }
+
+   // theses styles will apply when the component gets rendered on a 'light' wrapper
+   // (supports 3 levels of nesting)
+   :global(.sthemer-light) button,
+   :global(.sthemer-dark) :global(.sthemer-light) button,
+   :global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) button {
+      background-color: black;
+      color: white;
+   }
+   ```
 
 ## Sponsors
 
