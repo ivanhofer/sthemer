@@ -1,10 +1,6 @@
-<script>
-	import StrategySelection from './StrategySelection.svelte'
-</script>
-
 <header>
-	<div class="logo">🌓 sthemer</div>
-	<StrategySelection />
+	<a href="/" class="logo">🌓 sthemer</a>
+	<slot />
 </header>
 
 <style lang="scss">
@@ -31,8 +27,17 @@
 	}
 
 	.logo {
+		text-decoration: none;
 		font-family: monospace;
 		font-size: 24px;
 		line-height: 1;
+
+		@include on-dark {
+			color: var(--c-light-primary);
+		}
+
+		@include on-light {
+			color: var(--c-dark-primary);
+		}
 	}
 </style>

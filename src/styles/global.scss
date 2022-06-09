@@ -1,0 +1,10 @@
+@import '../styles/reset';
+@import '../styles/variables';
+
+html {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+	padding-block-start: var(--height-header);
+}

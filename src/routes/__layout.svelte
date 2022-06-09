@@ -1,30 +1,16 @@
 <script lang="ts">
 	import Sthemer from '$lib/Sthemer.svelte'
-	import Header from '$components/Header.svelte'
 </script>
 
 <Sthemer>
 	<div class="content">
-		<Header />
-
-		<main>
-			<slot />
-		</main>
+		<slot />
 	</div>
 </Sthemer>
 
 <style lang="scss">
 	:global {
-		@import '../styles/reset';
-		@import '../styles/variables';
-
-		html {
-			font-family: Arial, Helvetica, sans-serif;
-		}
-
-		body {
-			padding-block-start: var(--height-header);
-		}
+		@import '../styles/global';
 	}
 
 	.content {

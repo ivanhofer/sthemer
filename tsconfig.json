@@ -8,6 +8,11 @@
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
+		"paths": {
+			"$lib": ["src/lib"],
+			"$lib/*": ["src/lib/*"],
+			"$components/*": ["src/components/*"]
+		},
 		// strict options
 		"strict": true,
 		"exactOptionalPropertyTypes": true,
@@ -17,11 +22,6 @@
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
 		"noUncheckedIndexedAccess": true,
-		"allowUnreachableCode": false,
-		"paths": {
-			"$lib": ["src/lib"],
-			"$lib/*": ["src/lib/*"],
-			"$components/*": ["src/components/*"]
-		}
+		"allowUnreachableCode": false
 	}
 }

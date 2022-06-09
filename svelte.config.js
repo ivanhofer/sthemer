@@ -18,6 +18,7 @@ const config = {
 
 	kit: {
 		adapter: vercel(),
+		prerender: { enabled: false },
 		vite: {
 			resolve: {
 				alias: {
