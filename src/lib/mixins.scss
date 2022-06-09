@@ -1,19 +1,51 @@
-// TODO: add support for more or less levels of nesting
+$sthemerLevels: 1 !default;
 
-@mixin on-dark() {
-	:global(.sthemer-dark) &,
-	:global(.sthemer-light) :global(.sthemer-dark) &,
-	:global(.sthemer-dark) :global(.sthemer-light) :global(.sthemer-dark) &,
-	:global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) :global(.sthemer-dark) & {
+@function inverseSchema($scheme) {
+	@if $scheme == 'dark' {
+		@return 'light';
+	} @else {
+		@return 'dark';
+	}
+}
+
+@function getSchemeSelector($scheme) {
+	@if $scheme == 'dark' {
+		@return ':global(.sthemer-dark)';
+	} @else {
+		@return ':global(.sthemer-light)';
+	}
+}
+
+@function getSelector($scheme, $levels) {
+	@if ($levels < 1) {
+		$levels: 1;
+	}
+
+	$selector: '&';
+	$combinedSelector: '';
+
+	@for $i from 1 through $levels {
+		$selector: getSchemeSelector($scheme) + ' ' + $selector;
+		$scheme: inverseSchema($scheme);
+
+		@if ($combinedSelector == '') {
+			$combinedSelector: $selector;
+		} @else {
+			$combinedSelector: $combinedSelector + ', ' + $selector;
+		}
+	}
+
+	@return $combinedSelector;
+}
+
+@mixin on-dark($levels: $sthemerLevels) {
+	#{getSelector('dark', $levels)} {
 		@content;
 	}
 }
 
-@mixin on-light() {
-	:global(.sthemer-light) &,
-	:global(.sthemer-dark) :global(.sthemer-light) &,
-	:global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) &,
-	:global(.sthemer-dark) :global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) & {
+@mixin on-light($levels: $sthemerLevels) {
+	#{getSelector('light', $levels)} {
 		@content;
 	}
 }

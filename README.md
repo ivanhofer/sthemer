@@ -297,17 +297,25 @@
 
 ### Strategies
 
-#### **auto**: Auto-detects the user's preferred color scheme.
+-  #### **auto**:
 
-The [prefers-color-scheme media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) is used to determine the user's preferred color scheme.
+   Auto-detects the user's preferred color scheme.
 
-#### **light**: Use the **light** color scheme.
+   The [prefers-color-scheme media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) is used to determine the user's preferred color scheme.
 
-#### **dark**: Use the **dark** color scheme.
+-  #### **light**:
 
-#### **inverted**: Use the **inverted** color scheme.
+   Use the **light** color scheme.
 
-If used on a **light** color scheme, it will be **dark** and vice versa. Can be useful when using [nested schemes](#nested-schemes). When used at the root, it uses the inverted color scheme from the ['auto'-strategy](#auto).
+-  #### **dark**:
+
+   Use the **dark** color scheme.
+
+-  #### **inverted**:
+
+   Use the **inverted** color scheme.
+
+   If used on a **light** color scheme, it will be **dark** and vice versa. Can be useful when using [nested schemes](#nested-schemes). When used at the root, it uses the inverted color scheme from the ['auto'-strategy](#auto).
 
 ### Server-Side Rendering (SSR)
 
