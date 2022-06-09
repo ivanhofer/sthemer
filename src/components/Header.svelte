@@ -1,6 +1,8 @@
 <header>
-	<a href="/" class="logo">🌓 sthemer</a>
-	<slot />
+	<div class="inner narrow">
+		<a href="/" class="logo">🌓 sthemer</a>
+		<slot />
+	</div>
 </header>
 
 <style lang="scss">
@@ -10,9 +12,7 @@
 		left: 0;
 		right: 0;
 		height: var(--height-header);
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+
 		padding: 24px;
 		backdrop-filter: blur(3px);
 		transition: background-color 0.5s;
@@ -24,6 +24,12 @@
 		@include on-light {
 			background-color: var(--c-light-tertiary);
 		}
+	}
+
+	.inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	.logo {

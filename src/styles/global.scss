@@ -8,3 +8,9 @@ html {
 body {
 	padding-block-start: var(--height-header);
 }
+
+.narrow {
+	max-width: 810px;
+	width: 100%;
+	padding-inline: 24px;
+}
