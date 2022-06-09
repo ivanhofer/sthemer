@@ -17,8 +17,7 @@ $sthemerLevels: 1 !default;
 }
 
 @function getSelector($scheme, $levels) {
-	// TODO: cache results to not calculate them every time
-	@if ($levels < 1) {
+	@if $levels < 1 {
 		$levels: 1;
 	} @else if $levels > 100 {
 		$levels: 100;
@@ -31,7 +30,7 @@ $sthemerLevels: 1 !default;
 		$selector: getSchemeSelector($scheme) + ' ' + $selector;
 		$scheme: inverseSchema($scheme);
 
-		@if ($combinedSelector == '') {
+		@if $combinedSelector == '' {
 			$combinedSelector: $selector;
 		} @else {
 			$combinedSelector: $combinedSelector + ', ' + $selector;

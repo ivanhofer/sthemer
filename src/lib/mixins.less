@@ -1,19 +1,19 @@
-// TODO: add support for more or less levels of nesting
+@plugin "less.plugin.js";
 
-.on-dark(@content) {
-	:global(.sthemer-dark) &,
-	:global(.sthemer-light) :global(.sthemer-dark) &,
-	:global(.sthemer-dark) :global(.sthemer-light) :global(.sthemer-dark) &,
-	:global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) :global(.sthemer-dark) & {
+@sthemerLevels: 1;
+
+.on-dark(@content, @levels: @sthemerLevels) {
+	@selector: sthemer('dark', @levels);
+
+	@{selector} {
 		@content();
 	}
 }
 
-.on-light(@content) {
-	:global(.sthemer-light) &,
-	:global(.sthemer-dark) :global(.sthemer-light) &,
-	:global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) &,
-	:global(.sthemer-dark) :global(.sthemer-light) :global(.sthemer-dark) :global(.sthemer-light) & {
+.on-light(@content, @levels: @sthemerLevels) {
+	@selector: sthemer('light', @levels);
+
+	@{selector} {
 		@content();
 	}
 }
