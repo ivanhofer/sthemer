@@ -277,6 +277,8 @@
 
 -  #### **auto**:
 
+   **default value**
+
    Auto-detects the user's preferred color scheme.
 
    The [prefers-color-scheme media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) is used to determine the user's preferred color scheme.
@@ -441,3 +443,90 @@ By default the server doesn't know what color scheme the user is using. To get t
 <p align="center">
    Thanks for sponsoring my open source work!
 </p>
+
+## FAQs
+
+### Why should I specify the variants in each component instead of just replacing the color variables?
+
+Instead of writing your components like this:
+
+```scss
+:root {
+   --c-dark-primary: #212121;
+   --c-dark-secondary: #303030;
+   --c-dark-tertiary: #424242;
+   --c-light-primary: #fafafa;
+   --c-light-secondary: #f5f5f5;
+   --c-light-tertiary: #e0e0e0;
+}
+
+button {
+   &.on-dark {
+      color: var(--c-dark-primary);
+      background-color: var(--c-light-secondary);
+      border-color: var(--c-light-tertiary);
+
+      &:hover {
+         background-color: var(--c-light-primary);
+      }
+   }
+
+   &.on-light {
+      color: var(--c-light-primary);
+      background-color: var(--c-dark-secondary);
+      border-color: var(--c-dark-tertiary);
+
+      &:hover {
+         background-color: var(--c-dark-primary);
+      }
+   }
+}
+```
+
+you could also use the following approach:
+
+```scss
+.dark-mode {
+   --c-primary: #212121;
+   --c-secondary: #303030;
+   --c-tertiary: #424242;
+   --c-primary-inverted: #fafafa;
+   --c-secondary-inverted: #f5f5f5;
+   --c-tertiary-inverted: #e0e0e0;
+}
+
+.light-mode {
+   --c-primary: #fafafa;
+   --c-secondary: #f5f5f5;
+   --c-tertiary: #e0e0e0;
+   --c-primary-inverted: #212121;
+   --c-secondary-inverted: #303030;
+   --c-tertiary-inverted: #424242;
+}
+
+button {
+   color: var(--c-primary);
+   background-color: var(--c-secondary-inverted);
+   border-color: var(--c-tertiary-inverted);
+
+   &:hover {
+      background-color: var(--c-primary-inverted);
+   }
+}
+```
+
+But you probably shouldn't do that. There are a few reasons why you should use the approach that `sthemer` provides:
+
+1. It makes it harder to reason about how the component changes its appearance based on the color scheme.\
+   At first glance this may sound not so important. And it requires you to also write more code. But in the long run you will benefit from it. Not having to jump around different files to make a color adjustment will make your code more readable and easier to maintain.
+
+2. You probably need to vary from those variables in some edge cases which will become hard to implement when you base your theming on pre-existing variables.\
+   The border color on the dark button looks a bit odd. Maybe we should try to use `--c-primary-inverted`, but we want to keep `--c-tertiary-inverted` for the light button. How would you do that. You would probably need to define a new variable called `--c-button-border` and a few weeks later you will have 20+ variables defined at the root level, that are decoupled from their components and only get used a single time for that specific component.
+
+### Why do I have to manually specify multiple levels of nesting?
+
+Nesting is a feature that probably won't get used by most projects. Nesting produces more code, so it is disabled per default (see also next question). If you want to use it, [you can enable it](#nested-schemes) easily.
+
+### Why is the generated CSS so big when using multiple levels of nesting?
+
+The more levels of nesting you are using, the longer the required CSS selector is and so the file size of the resulting CSS will be larger. But It will not account that much to the amount of data an user has to download. Modern browsers and tools have good support for [gzip](https://www.gnu.org/software/gzip/) compression. Because those selectors will look quite similar, gzip compression will perform great and reduce the size.
