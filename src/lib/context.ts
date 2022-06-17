@@ -1,4 +1,3 @@
-import { browser } from '$app/env'
 import { getContext, setContext } from 'svelte'
 import { noop } from 'svelte/internal'
 import { derived, writable, type Readable, type Writable } from 'svelte/store'
@@ -22,7 +21,11 @@ type SthemerContext = {
 
 let prefersDarkFallback = false
 
-export const setFallbackScheme = (schema: string | null) => (prefersDarkFallback = schema === 'dark')
+let browser = true
+export const setFallbackScheme = (schema: string | null) => {
+	prefersDarkFallback = schema === 'dark'
+	browser = false
+}
 
 // ------------------------------------------------------------------------------------------------
 
