@@ -109,7 +109,7 @@ To wrap your application or parts of it. It will set up everything in order for 
 
 <Sthemer strategy="auto" let:scheme>
    I am rendered on a <strong>{scheme}</strong>
-    wrapper.
+   wrapper.
 </Sthemer>
 ```
 
