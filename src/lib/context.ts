@@ -1,6 +1,6 @@
 import { getContext, setContext } from 'svelte'
 import { noop } from 'svelte/internal'
-import { derived, writable, type Readable, type Writable } from 'svelte/store'
+import { derived, readable, writable, type Readable, type Writable } from 'svelte/store'
 
 const KEY = 'sthemer'
 
@@ -31,12 +31,8 @@ export const setFallbackScheme = (schema: string | null) => {
 
 export const getInvertedScheme = (scheme: SthemerScheme): SthemerScheme => (scheme === 'dark' ? 'light' : 'dark')
 
-export const getSthemerContext = () => {
-	const context = getContext<SthemerContext>(KEY)
-	if (context) return context
-
-	throw Error('You need to wrap your code in a <Sthemer> component')
-}
+export const getSthemerContext = () =>
+	getContext<SthemerContext>(KEY) || { strategy: writable('auto'), scheme: readable('light') }
 
 export const createSthemerContext = (strategy: SthemerStrategy = 'auto') => {
 	const mediaQueryPrefersDark = browser
