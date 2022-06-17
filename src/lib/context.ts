@@ -21,11 +21,9 @@ type SthemerContext = {
 
 let prefersDarkFallback = false
 
-let browser = true
-export const setFallbackScheme = (schema: string | null) => {
-	prefersDarkFallback = schema === 'dark'
-	browser = false
-}
+const supportsMatchMedia = typeof window !== 'undefined' && window.matchMedia
+
+export const setFallbackScheme = (schema: string | null) => (prefersDarkFallback = schema === 'dark')
 
 // ------------------------------------------------------------------------------------------------
 
@@ -35,7 +33,7 @@ export const getSthemerContext = () =>
 	getContext<SthemerContext>(KEY) || { strategy: writable('auto'), scheme: readable('light') }
 
 export const createSthemerContext = (strategy: SthemerStrategy = 'auto') => {
-	const mediaQueryPrefersDark = browser
+	const mediaQueryPrefersDark = supportsMatchMedia
 		? window.matchMedia('(prefers-color-scheme: dark)')
 		: { matches: prefersDarkFallback, addEventListener: noop, removeEventListener: noop }
 
