@@ -26,7 +26,7 @@ export const setFallbackScheme = (schema: string | null) => (prefersDarkFallback
 
 // ------------------------------------------------------------------------------------------------
 
-const getInvertedScheme = (scheme: SthemerScheme): SthemerScheme => (scheme === 'dark' ? 'light' : 'dark')
+export const getInvertedScheme = (scheme: SthemerScheme): SthemerScheme => (scheme === 'dark' ? 'light' : 'dark')
 
 export const getSthemerContext = () => {
 	const context = getContext<SthemerContext>(KEY)
