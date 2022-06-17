@@ -1,6 +1,6 @@
 {
 	"name": "sthemer",
-	"version": "0.11.2",
+	"version": "0.11.3",
 	"description": "A lightweight yet powerful solution to support multiple color schemes in your Svelte/SvelteKit application.",
 	"author": "ivanhofer",
 	"homepage": "https://github.com/ivanhofer/sthemer",
