@@ -52,7 +52,7 @@
 
    ```svelte
    <script>
-      import Sthemer from 'sthemer'
+      import Sthemer from 'sthemer/Sthemer.svelte'
    </script>
 
    <Sthemer strategy="auto">
@@ -104,7 +104,7 @@ To wrap your application or parts of it. It will set up everything in order for 
 
 ```svelte
 <script>
-   import Sthemer from 'sthemer'
+   import Sthemer from 'sthemer/Sthemer.svelte'
 </script>
 
 <Sthemer strategy="auto" let:scheme>
