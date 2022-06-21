@@ -10,7 +10,7 @@ const getPath = (file: string) => resolve(__dirname, file)
 build({
 	entryPoints: ['./package/context.js'],
 	bundle: true,
-	outfile: getPath(`./package/context.cjs`),
+	outfile: getPath(`./package/context.js`),
 	platform: 'browser',
 	format: 'cjs',
 	tsconfig: './tsconfig.json',
