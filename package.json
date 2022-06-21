@@ -77,11 +77,5 @@
 	},
 	"volta": {
 		"node": "16.15.1"
-	},
-	"exports": {
-		"./context": {
-			"import": "./context.js",
-			"require": "./context.js"
-		}
 	}
 }

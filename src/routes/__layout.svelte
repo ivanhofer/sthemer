@@ -1,5 +1,11 @@
 <script lang="ts">
+	import { initSthemer } from '$lib/context'
+
 	import Sthemer from '$lib/Sthemer.svelte'
+	import { getContext, setContext } from 'svelte'
+	import { derived, readable, writable } from 'svelte/store'
+
+	initSthemer({ derived, readable, writable, getContext, setContext })
 </script>
 
 <Sthemer>

@@ -1,8 +1,32 @@
-import { getContext, setContext } from 'svelte'
-import { noop } from 'svelte/internal'
-import { derived, readable, writable, type Readable, type Writable } from 'svelte/store'
+import type { getContext, setContext } from 'svelte'
+import type { derived, readable, writable, Readable, Writable } from 'svelte/store'
 
 const KEY = 'sthemer'
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => {}
+
+let _getContext: typeof getContext
+let _setContext: typeof setContext
+let _derived: typeof derived
+let _readable: typeof readable
+let _writable: typeof writable
+
+type InitSthemer = {
+	getContext: typeof getContext
+	setContext: typeof setContext
+	derived: typeof derived
+	readable: typeof readable
+	writable: typeof writable
+}
+
+export const initSthemer = ({ getContext, setContext, derived, readable, writable }: InitSthemer) => {
+	_getContext = getContext
+	_setContext = setContext
+	_derived = derived
+	_readable = readable
+	_writable = writable
+}
 
 // ------------------------------------------------------------------------------------------------
 
@@ -30,7 +54,7 @@ export const setFallbackScheme = (schema: string | null) => (prefersDarkFallback
 export const getInvertedScheme = (scheme: SthemerScheme): SthemerScheme => (scheme === 'dark' ? 'light' : 'dark')
 
 export const getSthemerContext = () =>
-	getContext<SthemerContext>(KEY) || { strategy: writable('auto'), scheme: readable('light') }
+	_getContext<SthemerContext>(KEY) || { strategy: _writable('auto'), scheme: _readable('light') }
 
 export const createSthemerContext = (strategy: SthemerStrategy = 'auto') => {
 	const mediaQueryPrefersDark = supportsMatchMedia
@@ -44,15 +68,15 @@ export const createSthemerContext = (strategy: SthemerStrategy = 'auto') => {
 		return prefersDarkScheme ? 'dark' : 'light'
 	}
 
-	const autoStore = writable<SthemerScheme>(mediaQueryPrefersDark.matches ? 'dark' : 'light')
+	const autoStore = _writable<SthemerScheme>(mediaQueryPrefersDark.matches ? 'dark' : 'light')
 
-	const strategyStore = writable<SthemerStrategy>(strategy)
+	const strategyStore = _writable<SthemerStrategy>(strategy)
 
-	const parentContext = getContext<SthemerContext>(KEY)
+	const parentContext = _getContext<SthemerContext>(KEY)
 
 	const changeScheme = () => autoStore.set(mediaQueryPrefersDark.matches ? 'dark' : 'light')
 
-	const schemeStore = derived<
+	const schemeStore = _derived<
 		[Writable<SthemerStrategy>, Writable<SthemerScheme>, Readable<SthemerScheme>],
 		SthemerScheme
 	>([strategyStore, autoStore, parentContext?.scheme], ([strategy, autoValue, parentScheme]) => {
@@ -75,7 +99,7 @@ export const createSthemerContext = (strategy: SthemerStrategy = 'auto') => {
 		scheme: schemeStore,
 	}
 
-	setContext<SthemerContext>(KEY, context)
+	_setContext<SthemerContext>(KEY, context)
 
 	return context
 }
