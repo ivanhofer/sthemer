@@ -12,7 +12,7 @@ build({
 	bundle: true,
 	outfile: getPath(`./package/context.js`),
 	platform: 'browser',
-	format: 'cjs',
+	format: 'esm',
 	tsconfig: './tsconfig.json',
 	allowOverwrite: true,
 }).catch(() => process.exit(1))
