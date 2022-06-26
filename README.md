@@ -25,7 +25,7 @@
    npm install sthemer
    ```
 
-2. :wrench: Add the mixin globally.
+2. :wrench: Add the style mixin globally.
 
    _svelte.config.js_
 
@@ -91,9 +91,31 @@
    </style>
    ```
 
-5. :open_book: Thats it. Play around and explore the docs to see some more examples.
+5. :wrench: Configure bundling behavior.
 
-6. :star: Star this project on [GitHub](https://github.com/ivanhofer/sthemer).
+   _svelte.config.js_
+
+   ```js
+   /** @type {import('@sveltejs/kit').Config} */
+   const config = {
+      kit: {
+         vite: {
+            optimizeDeps: {
+               exclude: ['sthemer'],
+            },
+            ssr: {
+               noExternal: ['sthemer'],
+            },
+         },
+      },
+   }
+   ```
+
+   > `sthemer` uses Svelte APIs to do it's work. Because Svelte compiles its functions into the individual application, we also need to tell `vite` to bundle `sthemer` the same way to gain access to those functions.
+
+6. :open_book: Thats it. Play around and explore the docs to see some more examples.
+
+7. :star: Star this project on [GitHub](https://github.com/ivanhofer/sthemer).
    > Thanks! This helps the project to grow.
 
 ## Usage
