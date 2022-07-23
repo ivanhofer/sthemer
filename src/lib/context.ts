@@ -23,7 +23,7 @@ let prefersDarkFallback = false
 
 const supportsMatchMedia = typeof window !== 'undefined' && window.matchMedia
 
-export const setFallbackScheme = (schema: string | null) => (prefersDarkFallback = schema === 'dark')
+export const setFallbackScheme = (scheme: string | null) => (prefersDarkFallback = scheme === 'dark')
 
 // ------------------------------------------------------------------------------------------------
 

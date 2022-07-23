@@ -1,6 +1,6 @@
 $sthemerLevels: 1 !default;
 
-@function inverseSchema($scheme) {
+@function inverseScheme($scheme) {
 	@if $scheme == 'dark' {
 		@return 'light';
 	} @else {
@@ -28,7 +28,7 @@ $sthemerLevels: 1 !default;
 
 	@for $i from 1 through $levels {
 		$selector: getSchemeSelector($scheme) + ' ' + $selector;
-		$scheme: inverseSchema($scheme);
+		$scheme: inverseScheme($scheme);
 
 		@if $combinedSelector == '' {
 			$combinedSelector: $selector;
