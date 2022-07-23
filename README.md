@@ -15,7 +15,9 @@
 
 <!-- list of supported emojis on GitHub: https://github.com/ikatyang/emoji-cheat-sheet -->
 
-<!-- TODO: link live demo -->
+## Examples
+
+[Click here to see some live examples](https://sthemer.vercel.app/)
 
 ## Getting Started
 
