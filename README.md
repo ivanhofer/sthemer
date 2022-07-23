@@ -351,6 +351,8 @@ Used scheme: {$scheme}
 
    The [prefers-color-scheme media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) is used to determine the user's preferred color scheme.
 
+   > [add SSR support](#server-side-rendering-ssr)
+
 -  #### **light**:
 
    Use the **light** color scheme.
@@ -364,6 +366,8 @@ Used scheme: {$scheme}
    Use the **inverted** color scheme.
 
    If used on a **light** color scheme, it will be **dark** and vice versa. Can be useful when using [nested schemes](#nested-schemes). When used at the root, it uses the inverted color scheme from the ['auto'-strategy](#auto).
+
+   > [add SSR support](#server-side-rendering-ssr)
 
 ### Nested Schemes
 
@@ -467,7 +471,7 @@ By default `sthemer` doesn't output code that can be used with nested color sche
 
 ### Server-Side Rendering (SSR)
 
-By default `sthemer` also works with your SvelteKit projects that perform server-side rendering.
+`sthemer` also works with your SvelteKit projects that perform server-side rendering.
 
 If you want to use the **[`inverted`](#inverted)** strategy at the root level or the **[`auto`](#auto)** strategy, you need to make a small adjustments to your SvelteKit project.
 
