@@ -14,7 +14,8 @@
 	}
 
 	.content {
-		min-height: calc(100vh - var(--height-header));
+		padding-block-start: var(--height-header);
+		min-height: 100vh;
 		transition: background-color 0.5s, color 0.5s;
 
 		@include on-dark {

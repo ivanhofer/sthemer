@@ -1,8 +1,7 @@
 <slot />
 
 <style lang="scss" global>
-	@import '../styles/reset';
-	@import '../styles/variables';
+	@import '../styles/global';
 
 	html {
 		font-family: Arial, Helvetica, sans-serif;
@@ -18,10 +17,6 @@
 
 	button:last-child {
 		margin-top: 30px;
-	}
-
-	pre {
-		display: inline-block;
 	}
 
 	.background {

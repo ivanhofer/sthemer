@@ -5,13 +5,13 @@ html {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
-	padding-block-start: var(--height-header);
-}
-
 .narrow {
 	max-width: 810px;
 	width: 100%;
 	padding-inline: 24px;
 	margin-inline: auto;
+}
+
+pre {
+	display: inline-block;
 }
