@@ -93,22 +93,19 @@
 
 5. :wrench: Configure bundling behavior.
 
-   _svelte.config.js_
+   _vite.config.js_
 
    ```js
-   /** @type {import('@sveltejs/kit').Config} */
-   const config = {
-      kit: {
-         vite: {
-            optimizeDeps: {
-               exclude: ['sthemer'],
-            },
-            ssr: {
-               noExternal: ['sthemer'],
-            },
-         },
+   import { defineConfig } from 'vite'
+
+   export default defineConfig({
+      optimizeDeps: {
+         exclude: ['sthemer'],
       },
-   }
+      ssr: {
+         noExternal: ['sthemer'],
+      },
+   })
    ```
 
    > `sthemer` uses Svelte APIs to do it's work. Because Svelte compiles its functions into the individual application, we also need to tell `vite` to bundle `sthemer` the same way to gain access to those functions.
