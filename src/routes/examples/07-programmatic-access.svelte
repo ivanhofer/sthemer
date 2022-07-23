@@ -18,8 +18,8 @@
 			</h1>
 
 			<p>
-				You can also use code to control the used strategy. The Sthemer component will detect changes and all
-				components will update accordingly.
+				You can also use code to control the used strategy. The ToggleButton can be inserted everywhere and controls
+				the behavior of the upper Sthemer component
 			</p>
 
 			<Button on:click={gotoNextExample}>go to next example</Button>

@@ -3,10 +3,6 @@
 <style lang="scss" global>
 	@import '../styles/global';
 
-	html {
-		font-family: Arial, Helvetica, sans-serif;
-	}
-
 	p {
 		max-width: 72ch;
 	}
