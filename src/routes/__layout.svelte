@@ -1,30 +1,45 @@
-<script lang="ts">
-	import Sthemer from '$lib/Sthemer.svelte'
-</script>
+<slot />
 
-<Sthemer>
-	<div class="content">
-		<slot />
-	</div>
-</Sthemer>
+<style lang="scss" global>
+	@import '../styles/reset';
+	@import '../styles/variables';
 
-<style lang="scss">
-	:global {
-		@import '../styles/global';
+	html {
+		font-family: Arial, Helvetica, sans-serif;
 	}
 
-	.content {
-		min-height: calc(100vh - var(--height-header));
-		transition: background-color 0.5s, color 0.5s;
+	p {
+		max-width: 72ch;
+	}
 
-		@include on-dark {
-			background-color: var(--c-dark-primary);
-			color: var(--c-light-primary);
+	button:first-child {
+		margin-bottom: 30px;
+	}
+
+	button:last-child {
+		margin-top: 30px;
+	}
+
+	pre {
+		display: inline-block;
+	}
+
+	.background {
+		&-light,
+		&-dark {
+			height: 100vh;
+			padding: 2rem;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
 		}
 
-		@include on-light {
-			background-color: var(--c-light-primary);
-			color: var(--c-dark-primary);
+		&-light {
+			background-color: white;
+		}
+
+		&-dark {
+			background-color: var(--c-dark-secondary);
 		}
 	}
 </style>

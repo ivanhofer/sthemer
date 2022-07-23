@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { sthemerStrategies, getSthemerContext } from '$lib/context'
+	import { sthemerStrategies, getSthemerContext } from 'sthemer/context'
 
 	const { strategy: strategyStore } = getSthemerContext()
 </script>

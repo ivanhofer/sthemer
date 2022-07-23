@@ -12,7 +12,7 @@ const config = {
 			prependData: `@import 'src/lib/mixins'`,
 		},
 		scss: {
-			prependData: `@import 'src/lib/mixins';`,
+			prependData: `@import 'src/lib/mixins'; $sthemerLevels: 5;`,
 		},
 	}),
 
@@ -22,6 +22,7 @@ const config = {
 		alias: {
 			$lib: resolve('./src/lib'),
 			$components: resolve('./src/components'),
+			sthemer: resolve('./src/lib'),
 		},
 	},
 }
