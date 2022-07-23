@@ -512,6 +512,11 @@ By default the server doesn't know what color scheme the user is using. To get t
 
 ## FAQs
 
+### Do I need this library?
+
+Probably not, but `sthemer` offers everything you could potentially need and can handle edge-cases like [`SSR`](#server-side-rendering-ssr) and [nesting](#nested-schemes) for you.
+You can also just take a look at the source code and take the parts you are interested in without using the full library.
+
 ### Why should I specify the variants in each component instead of just replacing the color variables?
 
 Instead of writing your components like this:
