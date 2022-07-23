@@ -473,6 +473,8 @@ By default `sthemer` doesn't output code that can be used with nested color sche
 
 `sthemer` also works with your SvelteKit projects that perform server-side rendering.
 
+> Note: this currently is only supported in Chrome >= 93. The feature was not added yet for [Firefox](https://github.com/mozilla/standards-positions/issues/526) and [Safari](https://lists.webkit.org/pipermail/webkit-dev/2021-May/031856.html).
+
 If you want to use the **[`inverted`](#inverted)** strategy at the root level or the **[`auto`](#auto)** strategy, you need to make a small adjustments to your SvelteKit project.
 
 By default the server doesn't know what color scheme the user is using. To get that information the server has to respond with some custom HTTP headers so the browser performs the request again with the information about the preferred color scheme.
