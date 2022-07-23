@@ -375,7 +375,7 @@ By default `sthemer` doesn't output code that can be used with nested color sche
 
       ```js
       // set the '$sthemerLevels' variable to the value you want
-      prependData: '@import 'src/lib/mixins'; $sthemerLevels: 3',
+      prependData: '@import 'sthemer/mixins'; $sthemerLevels: 3',
       ```
 
    -  for a specific selector
@@ -423,7 +423,7 @@ By default `sthemer` doesn't output code that can be used with nested color sche
       ```js
       // set the '$sthemerLevels' variable to the value you want
       prependData: `
-      @import 'src/lib/mixins'
+      @import 'sthemer/mixins'
       $sthemerLevels: 3
       `,
       ```
@@ -483,7 +483,7 @@ By default the server doesn't know what color scheme the user is using. To get t
 -  or if you already have a _[hooks](https://kit.svelte.dev/docs/hooks)_ file, add following lines to the top of the `handle` function:
 
    ```diff
-   +import { setupSthemer } from '$lib/hooks'
+   +import { setupSthemer } from 'sthemer/hooks'
 
    /** @type {import('@sveltejs/kit').Handle} */
    export async function handle({ event, resolve }) {
