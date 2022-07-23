@@ -2,7 +2,7 @@ import { getContext, setContext } from 'svelte'
 import { noop } from 'svelte/internal'
 import { derived, readable, writable, type Readable, type Writable } from 'svelte/store'
 
-const KEY = 'sthemer'
+const KEY = {}
 
 // ------------------------------------------------------------------------------------------------
 
