@@ -78,13 +78,13 @@
          padding: 10px 20px;
          border-radius: 8px;
 
-         // theses styles will apply when the component gets rendered on a 'dark' wrapper
+         // these styles will apply when the component gets rendered on a 'dark' wrapper
          @include on-dark {
             background-color: white;
             color: black;
          }
 
-         // theses styles will apply when the component gets rendered on a 'light' wrapper
+         // these styles will apply when the component gets rendered on a 'light' wrapper
          @include on-light {
             background-color: black;
             color: white;
@@ -202,13 +202,13 @@ Used scheme: {$scheme}
 
    <style lang="scss">
       button {
-         // theses styles will apply when the component gets rendered on a 'dark' wrapper
+         // these styles will apply when the component gets rendered on a 'dark' wrapper
          @include on-dark {
             background-color: white;
             color: black;
          }
 
-         // theses styles will apply when the component gets rendered on a 'light' wrapper
+         // these styles will apply when the component gets rendered on a 'light' wrapper
          @include on-light {
             background-color: black;
             color: white;
@@ -249,13 +249,13 @@ Used scheme: {$scheme}
 
    <style lang="less">
       button {
-         // theses styles will apply when the component gets rendered on a 'dark' wrapper
+         // these styles will apply when the component gets rendered on a 'dark' wrapper
          .on-dark({
             background-color: white;
             color: black;
          });
 
-         // theses styles will apply when the component gets rendered on a 'light' wrapper
+         // these styles will apply when the component gets rendered on a 'light' wrapper
          .on-light({
             background-color: black;
             color: white;
@@ -296,12 +296,12 @@ Used scheme: {$scheme}
 
    <style lang="sass">
       button
-         // theses styles will apply when the component gets rendered on a 'dark' wrapper
+         // these styles will apply when the component gets rendered on a 'dark' wrapper
          @include on-dark
             background-color: white
             color: black
    
-         // theses styles will apply when the component gets rendered on a 'light' wrapper
+         // these styles will apply when the component gets rendered on a 'light' wrapper
          @include on-light
             background-color: black
             color: white
@@ -320,13 +320,13 @@ Used scheme: {$scheme}
    </button>
 
    <style>
-      // theses styles will apply when the component gets rendered on a 'dark' wrapper
+      // these styles will apply when the component gets rendered on a 'dark' wrapper
       :global(.sthemer-dark) button {
          background-color: white;
          color: black;
       }
 
-      // theses styles will apply when the component gets rendered on a 'light' wrapper
+      // these styles will apply when the component gets rendered on a 'light' wrapper
       :global(.sthemer-dark) button {
          background-color: black;
          color: white;
@@ -351,7 +351,7 @@ Used scheme: {$scheme}
 
    The [prefers-color-scheme media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) is used to determine the user's preferred color scheme.
 
-   > [add SSR support](#server-side-rendering-ssr)
+   > Read [here](#server-side-rendering-ssr) to know how to add SSR support.
 
 -  #### **light**:
 
@@ -367,7 +367,7 @@ Used scheme: {$scheme}
 
    If used on a **light** color scheme, it will be **dark** and vice versa. Can be useful when using [nested schemes](#nested-schemes). When used at the root, it uses the inverted color scheme from the ['auto'-strategy](#auto).
 
-   > [add SSR support](#server-side-rendering-ssr)
+   > Read [here](#server-side-rendering-ssr) to know how to add SSR support.
 
 ### Nested Schemes
 
@@ -447,10 +447,10 @@ By default `sthemer` doesn't output code that can be used with nested color sche
 
 -  [**CSS**](#css-no-preprocessor)
 
-   If you want to support multiple [levels of nesting](#nested-schemes), you need to manually add them if you are not using a preprocessor like [`sass`](#sass), [`scss`](#scss) or [`less`](#less).
+   If you want to support multiple [levels of nesting](#nested-schemes) with plain CSS, you need to manually add them if you are not using a preprocessor like [`sass`](#sass), [`scss`](#scss) or [`less`](#less).
 
    ```css
-   // theses styles will apply when the component gets rendered on a 'dark' wrapper
+   // these styles will apply when the component gets rendered on a 'dark' wrapper
    // (supports 3 levels of nesting)
    :global(.sthemer-dark) button,
    :global(.sthemer-light) :global(.sthemer-dark) button,
@@ -459,7 +459,7 @@ By default `sthemer` doesn't output code that can be used with nested color sche
       color: black;
    }
 
-   // theses styles will apply when the component gets rendered on a 'light' wrapper
+   // these styles will apply when the component gets rendered on a 'light' wrapper
    // (supports 3 levels of nesting)
    :global(.sthemer-light) button,
    :global(.sthemer-dark) :global(.sthemer-light) button,
@@ -477,18 +477,17 @@ By default `sthemer` doesn't output code that can be used with nested color sche
 
 If you want to use the **[`inverted`](#inverted)** strategy at the root level or the **[`auto`](#auto)** strategy, you need to make a small adjustments to your SvelteKit project.
 
-By default the server doesn't know what color scheme the user is using. To get that information the server has to respond with some custom HTTP headers so the browser performs the request again with the information about the preferred color scheme.
+By default the server doesn't know what color scheme the user is using. To get that information the server has to respond with some custom HTTP headers. The browser then performs the request again with the information about the preferred color scheme.
 
 `sthemer` already provides this functionality and you just have to connect it to your SvelteKit project:
 
--  if you don't have a _[hooks](https://kit.svelte.dev/docs/hooks)_ file yet, create one with the following content:
+-  if you don't have a _[hooks.server.js](https://kit.svelte.dev/docs/hooks#server-hooks)_ file yet, create one with the following content:
 
    ```ts
-   import { handle } from 'sthemer/hooks'
-   export { handle }
+   export { handle } from 'sthemer/hooks'
    ```
 
--  or if you already have a _[hooks](https://kit.svelte.dev/docs/hooks)_ file, add following lines to the top of the `handle` function:
+-  or if you already have a _[hooks.server.js](https://kit.svelte.dev/docs/hooks#server-hooks)_ file, add following lines to the top of the `handle` function:
 
    ```diff
    +import { setupSthemer } from 'sthemer/hooks'
@@ -540,23 +539,31 @@ Instead of writing your components like this:
 }
 
 button {
+   color: var(--c);
+   background-color: var(--c-bg);
+   border-color: var(--c-border);
+
+   &:hover {
+      background-color: var(--c-bg--hover);
+   }
+
    &.on-dark {
-      color: var(--c-dark-primary);
-      background-color: var(--c-light-secondary);
-      border-color: var(--c-light-tertiary);
+      --c: var(--c-dark-primary);
+      --c-bg: var(--c-light-secondary);
+      --c-border: var(--c-light-tertiary);
 
       &:hover {
-         background-color: var(--c-light-primary);
+         --c-bg--hover: var(--c-light-primary);
       }
    }
 
    &.on-light {
-      color: var(--c-light-primary);
-      background-color: var(--c-dark-secondary);
-      border-color: var(--c-dark-tertiary);
+      --c: var(--c-light-primary);
+      --c-bg: var(--c-dark-secondary);
+      --c-border: var(--c-dark-tertiary);
 
       &:hover {
-         background-color: var(--c-dark-primary);
+         --c-bg--hover: var(--c-dark-primary);
       }
    }
 }
@@ -596,11 +603,11 @@ button {
 
 But you probably shouldn't do that. There are a few reasons why you should use the approach that `sthemer` provides:
 
-1. It makes it harder to reason about how the component changes its appearance based on the color scheme.\
+1. It makes it easier to reason about how the component changes its appearance based on the color scheme.\
    At first glance this may sound not so important. And it requires you to also write more code. But in the long run you will benefit from it. Not having to jump around different files to make a color adjustment will make your code more readable and easier to maintain.
 
-2. You probably need to vary from those variables in some edge cases which will become hard to implement when you base your theming on pre-existing variables.\
-   The border color on the dark button looks a bit odd. Maybe we should try to use `--c-primary-inverted`, but we want to keep `--c-tertiary-inverted` for the light button. How would you do that. You would probably need to define a new variable called `--c-button-border` and a few weeks later you will have 20+ variables defined at the root level, that are decoupled from their components and only get used a single time for that specific component.
+2. You probably need to vary from the variables you define at the root in some edge cases which will become hard to implement when you base your theming on pre-existing variables.\
+   The border color on the dark button looks a bit odd. Maybe we should try to use `--c-primary-inverted`, but we want to keep `--c-tertiary-inverted` for the light button. How would you do that? You would probably need to define a new variable called `--c-button-border` and a few weeks later you will have 20+ variables defined at the root level, that are decoupled from their components and only get used a single time for a specific component.
 
 ### Why do I have to manually specify multiple levels of nesting?
 
