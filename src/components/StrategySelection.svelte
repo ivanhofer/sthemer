@@ -17,15 +17,17 @@
 		border-radius: 4px;
 		padding: 4px 8px;
 		transition: background-color 0.5s, color 0.5s;
+		background-color: var(--c-bg);
+		color: var(--c);
 
 		@include on-dark {
-			background-color: var(--c-dark-secondary);
-			color: var(--c-light-primary);
+			--c-bg: var(--c-dark-secondary);
+			--c: var(--c-light-primary);
 		}
 
 		@include on-light {
-			background-color: var(--c-light-secondary);
-			color: var(--c-dark-primary);
+			--c-bg: var(--c-light-secondary);
+			--c: var(--c-dark-primary);
 		}
 	}
 </style>

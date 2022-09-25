@@ -16,13 +16,14 @@
 		padding: 24px;
 		backdrop-filter: blur(3px);
 		transition: background-color 0.5s;
+		background-color: var(--c-bg);
 
 		@include on-dark {
-			background-color: var(--c-dark-tertiary);
+			--c-bg: var(--c-dark-tertiary);
 		}
 
 		@include on-light {
-			background-color: var(--c-light-tertiary);
+			--c-bg: var(--c-light-tertiary);
 		}
 	}
 
@@ -37,13 +38,14 @@
 		font-family: monospace;
 		font-size: 24px;
 		line-height: 1;
+		color: var(--c);
 
 		@include on-dark {
-			color: var(--c-light-primary);
+			--c: var(--c-light-primary);
 		}
 
 		@include on-light {
-			color: var(--c-dark-primary);
+			--c: var(--c-dark-primary);
 		}
 	}
 </style>

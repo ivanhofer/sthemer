@@ -88,13 +88,14 @@
 		text-decoration: none;
 		border-bottom: 2px solid;
 		transition: border-color 0.5s, color 0.5s;
+		color: var(--c);
 
 		@include on-light {
-			color: var(--c-dark-tertiary);
+			--c: var(--c-dark-tertiary);
 		}
 
 		@include on-dark {
-			color: var(--c-light-tertiary);
+			--c: var(--c-light-tertiary);
 		}
 	}
 </style>

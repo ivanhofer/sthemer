@@ -50,13 +50,14 @@
 	.npm-logo {
 		path {
 			transition: fill 0.5s;
+			fill: var(--c);
 
 			@include on-dark {
-				fill: #fff;
+				--c: #fff;
 			}
 
 			@include on-light {
-				fill: #000;
+				--c: #000;
 			}
 		}
 	}
