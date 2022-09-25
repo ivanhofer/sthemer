@@ -10,15 +10,15 @@
 
 <style lang="scss">
 	:global {
-		@import '../styles/global';
+		@import '../../styles/global';
 	}
 
 	.content {
 		padding-block-start: var(--height-header);
 		min-height: 100vh;
 		transition: background-color 0.5s, color 0.5s;
-		--c-bg: var(--c-bg);
-		--c: var(--c);
+		background-color: var(--c-bg);
+		color: var(--c);
 
 		@include on-dark {
 			--c-bg: var(--c-dark-primary);

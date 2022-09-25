@@ -1,7 +1,7 @@
 <slot />
 
 <style lang="scss" global>
-	@import '../styles/global';
+	@import '../../styles/global';
 
 	p {
 		max-width: 72ch;
