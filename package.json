@@ -74,6 +74,10 @@
 		"ua-parser-js": "^1.0.32",
 		"vite": "^3.2.4"
 	},
+	"peerDependencies": {
+		"@sveltejs/kit": "^1.0.0-next",
+		"svelte": "^3"
+	},
 	"type": "module",
 	"funding": {
 		"type": "github",
