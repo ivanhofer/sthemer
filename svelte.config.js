@@ -18,7 +18,6 @@ const config = {
 
 	kit: {
 		adapter: vercel(),
-		prerender: { enabled: false },
 		alias: {
 			$lib: resolve('./src/lib'),
 			$components: resolve('./src/components'),
