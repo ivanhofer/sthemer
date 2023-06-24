@@ -1,8 +1,8 @@
 import { getContext, setContext } from 'svelte'
-import { noop } from 'svelte/internal'
 import { derived, readable, writable, type Readable, type Writable } from 'svelte/store'
 
 const KEY = 'sthemer'
+const noop = () => undefined
 
 // ------------------------------------------------------------------------------------------------
 
@@ -48,7 +48,12 @@ export const createSthemerContext = (strategy: SthemerStrategy = 'auto') => {
 
 	const strategyStore = writable<SthemerStrategy>(strategy)
 
-	const parentContext = getContext<SthemerContext>(KEY)
+	const parentContext =
+		getContext<SthemerContext>(KEY) ??
+		setContext<SthemerContext>(KEY, {
+			strategy: strategyStore,
+			scheme: readable(getSchemeFromStrategy(strategy)),
+		})
 
 	const changeScheme = () => autoStore.set(mediaQueryPrefersDark.matches ? 'dark' : 'light')
 
