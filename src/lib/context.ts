@@ -48,19 +48,16 @@ export const createSthemerContext = (strategy: SthemerStrategy = 'auto') => {
 
 	const strategyStore = writable<SthemerStrategy>(strategy)
 
-	const parentContext =
-		getContext<SthemerContext>(KEY) ??
-		setContext<SthemerContext>(KEY, {
-			strategy: strategyStore,
-			scheme: readable(getSchemeFromStrategy(strategy)),
-		})
+	const parentContext = getContext<SthemerContext>(KEY)
+
+	const parentScheme = parentContext ? parentContext.scheme : readable<SthemerScheme>(getSchemeFromStrategy(strategy))
 
 	const changeScheme = () => autoStore.set(mediaQueryPrefersDark.matches ? 'dark' : 'light')
 
 	const schemeStore = derived<
 		[Writable<SthemerStrategy>, Writable<SthemerScheme>, Readable<SthemerScheme>],
 		SthemerScheme
-	>([strategyStore, autoStore, parentContext?.scheme], ([strategy, autoValue, parentScheme]) => {
+	>([strategyStore, autoStore, parentScheme], ([strategy, autoValue, parentScheme]) => {
 		if (strategy === 'inverted') {
 			return getInvertedScheme(parentScheme || autoValue)
 		}
