@@ -48,9 +48,9 @@
 		"lint-staged": "lint-staged"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-vercel": "^1.0.0",
-		"@sveltejs/kit": "^1.0.1",
-		"@sveltejs/package": "^1.0.1",
+		"@sveltejs/adapter-vercel": "^3.0.1",
+		"@sveltejs/kit": "^1.20.5",
+		"@sveltejs/package": "^2.1.0",
 		"@types/ua-parser-js": "^0.7.36",
 		"@typescript-eslint/eslint-plugin": "^5.47.0",
 		"@typescript-eslint/parser": "^5.47.0",
@@ -65,7 +65,7 @@
 		"prettier": "^2.8.1",
 		"prettier-plugin-svelte": "^2.9.0",
 		"sass": "^1.57.1",
-		"svelte": "^3.55.0",
+		"svelte": "^4.0.0",
 		"svelte-check": "^2.10.3",
 		"svelte-preprocess": "^5.0.0",
 		"svelte2tsx": "^0.5.23",
@@ -76,7 +76,7 @@
 	},
 	"peerDependencies": {
 		"@sveltejs/kit": "^1",
-		"svelte": "^3",
+		"svelte": "^3 || ^4",
 		"vite": "^4"
 	},
 	"type": "module",

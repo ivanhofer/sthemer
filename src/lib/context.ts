@@ -1,8 +1,8 @@
 import { getContext, setContext } from 'svelte'
-import { noop } from 'svelte/internal'
 import { derived, readable, writable, type Readable, type Writable } from 'svelte/store'
 
 const KEY = 'sthemer'
+const noop = () => undefined
 
 // ------------------------------------------------------------------------------------------------
 
@@ -50,12 +50,14 @@ export const createSthemerContext = (strategy: SthemerStrategy = 'auto') => {
 
 	const parentContext = getContext<SthemerContext>(KEY)
 
+	const parentScheme = parentContext ? parentContext.scheme : readable<SthemerScheme>(getSchemeFromStrategy(strategy))
+
 	const changeScheme = () => autoStore.set(mediaQueryPrefersDark.matches ? 'dark' : 'light')
 
 	const schemeStore = derived<
 		[Writable<SthemerStrategy>, Writable<SthemerScheme>, Readable<SthemerScheme>],
 		SthemerScheme
-	>([strategyStore, autoStore, parentContext?.scheme], ([strategy, autoValue, parentScheme]) => {
+	>([strategyStore, autoStore, parentScheme], ([strategy, autoValue, parentScheme]) => {
 		if (strategy === 'inverted') {
 			return getInvertedScheme(parentScheme || autoValue)
 		}
